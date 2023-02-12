@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
 
 export const pageContainerStyles = style({
-    padding: '8px 16px',
+    padding: '32px 16px',
 })

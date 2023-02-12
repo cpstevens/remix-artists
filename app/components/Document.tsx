@@ -10,9 +10,10 @@ import { Header } from "./Header";
 
 type DocumentProps = {
   children: React.ReactNode;
+  isUserLoggedIn: boolean;
 };
 
-export const Document: React.FC<DocumentProps> = ({ children }) => {
+export const Document: React.FC<DocumentProps> = ({ children, isUserLoggedIn }) => {
   return (
     <html lang="en">
       <head>
@@ -20,7 +21,7 @@ export const Document: React.FC<DocumentProps> = ({ children }) => {
         <Links />
       </head>
       <body className={rootStyles}>
-        <Header />
+        <Header isLoggedIn={isUserLoggedIn} />
         {children}
         <ScrollRestoration />
         <Scripts />
