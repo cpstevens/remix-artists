@@ -1,44 +1,14 @@
-import { LoaderArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { getSession } from "~/auth/sessions.server";
-import { ArtistGrid } from "~/components/ArtistList";
+import { Form, Outlet } from "@remix-run/react";
+import { buttonStyles, buttonTextStyles } from "~/styles/button.css";
 import {
-  getUsersFollowedArtists,
-  Homepage_ArtistInfo,
-} from "~/services/spotify.server";
+  discoverContainerStyles,
+  discoverInputContainerStyles,
+  discoverInputLabelStyles,
+  discoverInputStyles,
+} from "~/styles/discover.css";
 import { pageContainerStyles } from "~/styles/pageContainer.css";
 
-type LoaderData = {
-  isUserAuthenticated: boolean;
-  followedArtists: Homepage_ArtistInfo[];
-};
-
-export const loader = async ({ request }: LoaderArgs) => {
-  const session = await getSession(request.headers.get("Cookie"));
-
-  if (!session.has("access_token")) {
-    return json<LoaderData>({
-      isUserAuthenticated: false,
-      followedArtists: [],
-    });
-  }
-
-  const data = await getUsersFollowedArtists(session);
-
-  return json<LoaderData>({
-    isUserAuthenticated: true,
-    followedArtists: data.items.map(({ name, id, images }) => ({
-      name,
-      id,
-      images,
-    })),
-  });
-};
-
 export default function ArtistsLayoutPage() {
-  const { isUserAuthenticated, followedArtists } =
-    useLoaderData<typeof loader>();
-
   return (
     <main className={pageContainerStyles}>
       <h1>Artists</h1>
@@ -46,12 +16,30 @@ export default function ArtistsLayoutPage() {
         This is the hub for all things artist related, showing your followed
         artists as well as a way to discover new ones!
       </p>
-      <h2>Your Followed Artists ({followedArtists.length})</h2>
-      {isUserAuthenticated ? (
-        <ArtistGrid artists={followedArtists} />
-      ) : (
-        <p>Login to view followed artists</p>
-      )}
+      <div className={discoverContainerStyles}>
+        <Form
+          className={discoverInputContainerStyles}
+          method="get"
+          action="/artists/discover"
+        >
+          <label className={discoverInputLabelStyles} htmlFor="artist-name">
+            Artist Name
+          </label>
+          <div>
+            <input
+              className={discoverInputStyles}
+              id="artist-name"
+              name="artist-name"
+              type="text"
+              placeholder="Enter an Artist's Name"
+            />
+            <button type="submit" className={buttonStyles.linkButton}>
+              <span className={buttonTextStyles}>Search</span>
+            </button>
+          </div>
+        </Form>
+      </div>
+      <Outlet />
     </main>
   );
 }

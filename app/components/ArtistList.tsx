@@ -22,10 +22,10 @@ export const ArtistGrid: React.FC<ArtistListProps> = ({ artists }) => {
             />
 
             <img
-              src={images[0].url}
+              src={images[0]?.url ?? '/not-found.jpg'}
               alt={`Image of ${name}`}
-              height={images[0].height / 2}
-              width={images[0].width / 2}
+              height={250}
+              width={250}
             />
             <p className={artistNameStyles}>{name}</p>
           </div>

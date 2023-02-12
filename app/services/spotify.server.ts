@@ -37,7 +37,7 @@ export const getUsersFollowedArtists = async (
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: buildAuthorizationHeader(session),
+        'Authorization': buildAuthorizationHeader(session),
       },
     }
   );
@@ -45,3 +45,16 @@ export const getUsersFollowedArtists = async (
   const data = await response.json();
   return data.artists;
 };
+
+export const searchForArtist = async (artistName: string, session: Session): Promise<Spotify_ArtistInfo[]> => {
+    const response = await fetch(`https://api.spotify.com/v1/search?q=${artistName}&type=artist`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': buildAuthorizationHeader(session)
+        }
+    });
+
+    const data = await response.json();
+    return data.artists.items;
+}
