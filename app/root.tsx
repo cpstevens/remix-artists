@@ -1,12 +1,11 @@
+import { cssBundleHref } from "@remix-run/css-bundle";
 import type { MetaFunction } from "@remix-run/node";
+import { LinksFunction } from "@remix-run/node";
 import {
-  Links,
-  LiveReload,
-  Meta,
   Outlet,
-  Scripts,
-  ScrollRestoration,
 } from "@remix-run/react";
+import { ErrorBoundaryComponent } from "@remix-run/react/dist/routeModules";
+import { Document } from "./components/Document";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -14,19 +13,23 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+export const links: LinksFunction = () => {
+  return [
+    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ];
+};
+
 export default function App() {
   return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
+    <Document>
+      <Outlet />
+    </Document>
   );
+}
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+  return <Document>
+    <h1>Something went wrong</h1>
+    <p>{error.message}</p>
+  </Document>
 }

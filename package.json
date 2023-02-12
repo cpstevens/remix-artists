@@ -9,9 +9,11 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@remix-run/css-bundle": "^1.12.0",
     "@remix-run/node": "^1.12.0",
     "@remix-run/react": "^1.12.0",
     "@remix-run/serve": "^1.12.0",
+    "@vanilla-extract/css": "^1.9.5",
     "isbot": "^3.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -22,6 +24,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
     "eslint": "^8.27.0",
+    "prettier": "^2.8.4",
     "typescript": "^4.8.4"
   },
   "engines": {
