@@ -8,7 +8,7 @@ import {
 import { Link, useCatch, useLoaderData } from "@remix-run/react";
 import { commitSession, getSession } from "~/auth/sessions.server";
 import { getAccessToken } from "~/auth/spotifyAuth.server";
-import { buttonStyles, buttonTextStyles } from "~/styles/button.css";
+import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const session = await getSession(request.headers.get("Cookie"));

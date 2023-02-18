@@ -39,21 +39,18 @@ type SpotifyAuth_UserAuthorizationRequest = {
 };
 
 export const requestUserAuthorization = () => {
-  const { SPOTIFY_CLIENT_ID, SPOTIFY_STATE_TOKEN } = process.env;
-  if (!SPOTIFY_CLIENT_ID || !SPOTIFY_STATE_TOKEN) {
-    throw new Error("ERROR - Spotify Client ID and State Token Not Found");
+  const { SPOTIFY_CLIENT_ID, SPOTIFY_STATE_TOKEN, SPOTIFY_REDIRECT_URI } = process.env;
+  if (!SPOTIFY_CLIENT_ID || !SPOTIFY_STATE_TOKEN || !SPOTIFY_REDIRECT_URI) {
+    throw new Error("ERROR - SPOTIFY_CLIENT_ID, SPOTIFY_STATE_TOKEN, and SPOTIFY_REDIRECT_URI must all be set");
   }
 
   const scopes = "user-follow-read";
-  const redirectUri = "http://localhost:3000/postlogin";
-
-  console.log(`baseState on inital send ${SPOTIFY_STATE_TOKEN}`);
 
   const params: SpotifyAuth_UserAuthorizationRequest = {
     response_type: "code",
     client_id: SPOTIFY_CLIENT_ID,
     state: SPOTIFY_STATE_TOKEN,
-    redirect_uri: redirectUri,
+    redirect_uri: SPOTIFY_REDIRECT_URI,
     scope: scopes,
     show_dialog: false,
   };
@@ -71,9 +68,10 @@ export const getAccessToken = async ({
   if (error) {
     throw new Error(error);
   }
-  const { SPOTIFY_STATE_TOKEN } = process.env;
-  console.log(`baseState on callback ${SPOTIFY_STATE_TOKEN}`);
-  console.log(`state on callback ${state}`);
+  const { SPOTIFY_STATE_TOKEN, SPOTIFY_REDIRECT_URI } = process.env;
+  if (!SPOTIFY_STATE_TOKEN || !SPOTIFY_REDIRECT_URI) {
+    throw new Error("ERROR - SPOTIFY_STATE_TOKEN, and SPOTIFY_REDIRECT_URI must all be set");
+  }
 
   if (state !== SPOTIFY_STATE_TOKEN) {
     throw new Error("state mismatch");
@@ -86,7 +84,7 @@ export const getAccessToken = async ({
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     body: `code=${code}&redirect_uri=${encodeURI(
-      "http://localhost:3000/postlogin"
+     SPOTIFY_REDIRECT_URI
     )}&grant_type=authorization_code`,
     headers: {
       Authorization: buildAuthorizationHeader(),

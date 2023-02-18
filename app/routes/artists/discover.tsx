@@ -4,7 +4,11 @@ import {
   useCatch,
   useLoaderData,
 } from "@remix-run/react";
-import { getSession, isUserLoggedIn } from "~/auth/sessions.server";
+import {
+  commitSession,
+  getSession,
+  isUserLoggedIn,
+} from "~/auth/sessions.server";
 import { ArtistGrid } from "~/components/ArtistList";
 import {
   Homepage_ArtistInfo,
@@ -21,7 +25,7 @@ export const loader = async ({ request }: LoaderArgs) => {
   const artistName = params.get("artist-name");
 
   if (!artistName) {
-    return redirect('/artists')  
+    return redirect("/artists");
   }
 
   if (artistName.length < 3) {
@@ -41,10 +45,17 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   const artists = await searchForArtist(artistName, session);
 
-  return json<LoaderData>({
-    artists,
-    searchTerm: artistName,
-  });
+  return json<LoaderData>(
+    {
+      artists,
+      searchTerm: artistName,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
@@ -67,7 +78,9 @@ export default function DiscoverArtistRoute() {
 
   return (
     <>
-      <h2>{artists.length} results for {searchTerm}</h2>
+      <h2>
+        {artists.length} results for {searchTerm}
+      </h2>
       <ArtistGrid artists={artists} />
     </>
   );

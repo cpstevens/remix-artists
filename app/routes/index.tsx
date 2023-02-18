@@ -1,16 +1,19 @@
 import { LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getSession } from "~/auth/sessions.server";
+import { commitSession, getSession } from "~/auth/sessions.server";
 import { ArtistGrid } from "~/components/ArtistList";
-import { getUsersFollowedArtists, Homepage_ArtistInfo } from "~/services/spotify.server";
-import { pageContainerStyles } from "~/styles/pageContainer.css";
+import {
+  getUsersFollowedArtists,
+  Homepage_ArtistInfo,
+} from "~/services/spotify.server";
+import { pageContainerStyles } from "~/styles/shared/pageContainer.css";
 
 type LoaderData = {
   isUserAuthenticated: boolean;
   followedArtists: Homepage_ArtistInfo[];
-}
+};
 
-export const loader = async ({request}: LoaderArgs) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
 
   if (!session.has("access_token")) {
@@ -24,18 +27,25 @@ export const loader = async ({request}: LoaderArgs) => {
 
   return json<LoaderData>({
     isUserAuthenticated: true,
-    followedArtists: data.items.map(({ name, id, images }) => ({
-      name,
-      id,
-      images,
-    })),
+    followedArtists: data.items.map(
+      ({ name, id, images }) => ({
+        name,
+        id,
+        images,
+      }),
+      {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      }
+    ),
   });
-}
+};
 
 export default function Index() {
   const { isUserAuthenticated, followedArtists } =
     useLoaderData<typeof loader>();
-    
+
   return (
     <div className={pageContainerStyles}>
       <h1>Welcome to Remix-Artists</h1>

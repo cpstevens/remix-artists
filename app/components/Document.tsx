@@ -5,7 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { rootStyles } from "~/styles/rootStyles.css";
+import { rootStyles } from "~/styles/shared/rootStyles.css";
 import { Header } from "./Header";
 
 type DocumentProps = {

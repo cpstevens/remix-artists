@@ -58,3 +58,17 @@ export const searchForArtist = async (artistName: string, session: Session): Pro
     const data = await response.json();
     return data.artists.items;
 }
+
+export const getArtistInformation = async (artistId: string, session: Session): Promise<Spotify_ArtistInfo> => {
+  const response = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': buildAuthorizationHeader(session)
+    }
+  });
+
+  const data = await response.json();
+
+  return data;
+};

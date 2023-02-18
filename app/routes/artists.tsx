@@ -1,12 +1,12 @@
 import { Form, Outlet } from "@remix-run/react";
-import { buttonStyles, buttonTextStyles } from "~/styles/button.css";
+import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
 import {
   discoverContainerStyles,
   discoverInputContainerStyles,
   discoverInputLabelStyles,
   discoverInputStyles,
-} from "~/styles/discover.css";
-import { pageContainerStyles } from "~/styles/pageContainer.css";
+} from "~/styles/pages/discover.css";
+import { pageContainerStyles } from "~/styles/shared/pageContainer.css";
 
 export default function ArtistsLayoutPage() {
   return (

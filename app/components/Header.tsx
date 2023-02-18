@@ -5,8 +5,8 @@ import {
   navItemStyle,
   siteLogo,
   navLinksStyle,
-} from "~/styles/header.css";
-import { buttonStyles, buttonTextStyles } from "~/styles/button.css";
+} from "~/styles/components/header.css";
+import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
 
 type HeaderProps = {
   isLoggedIn: boolean;

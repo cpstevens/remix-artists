@@ -2,8 +2,8 @@ import { ActionFunction, redirect } from "@remix-run/node";
 import { Form, Link } from "@remix-run/react";
 
 import { getSession, destroySession } from "~/auth/sessions.server";
-import { buttonStyles, buttonTextStyles } from "~/styles/button.css";
-import { pageContainerStyles } from "~/styles/pageContainer.css";
+import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
+import { pageContainerStyles } from "~/styles/shared/pageContainer.css";
 
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
