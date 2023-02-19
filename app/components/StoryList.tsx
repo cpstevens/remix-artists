@@ -1,12 +1,11 @@
-import { Link } from "@remix-run/react";
 import { NewsAPI_Story } from "~/services/newsApi.server";
 import {
   storyListContainerStyles,
   storyListItemContainer,
   storyListItemContents,
   storyListItemHeader,
-  storyListItemImage,
   storyListItemInformation,
+  storyListLinkStyles,
 } from "~/styles/components/storyList.css";
 
 interface StoryListProps {
@@ -21,7 +20,7 @@ export const StoryList: React.FC<StoryListProps> = ({ stories }) => {
           <div className={storyListItemContents}>
             <div className={storyListItemInformation}>
               <p className={storyListItemHeader}>
-                <a href={story.url} target="_blank">{story.title}</a>
+                <a className={storyListLinkStyles} href={story.url} target="_blank">{story.title}</a>
               </p>
               <p>{story.description}</p>
             </div>

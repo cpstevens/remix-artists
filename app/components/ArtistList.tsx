@@ -19,7 +19,7 @@ export const ArtistGrid: React.FC<ArtistListProps> = ({ artists }) => {
           <Link to={`/artists/${id}`} className={artistListEntryContent}>
             <img
               width={100}
-              src="/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png"
+              src="/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png"
             />
 
             <img

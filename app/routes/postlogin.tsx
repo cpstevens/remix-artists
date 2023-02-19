@@ -27,7 +27,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     session.set("scope", scope);
     session.set("token_type", token_type);
 
-    return redirect("/artists", {
+    return redirect("/", {
       headers: {
         "Set-Cookie": await commitSession(session),
       },

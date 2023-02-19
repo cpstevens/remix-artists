@@ -38,9 +38,9 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
 
   if (!isUserLoggedIn(session)) {
-    throw new Response("Cannot search for artists", {
+    throw new Response("Cannot show artist information", {
       status: 401,
-      statusText: "Please log in to search for artists",
+      statusText: "Please log in to view artist information",
     });
   }
 
@@ -60,12 +60,12 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 };
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
-  const { data } = useCatch();
+  const { data, statusText } = useCatch();
 
   return (
     <>
       <h2>{data}</h2>
-      <p>Try searching for another artist</p>
+      <p>{statusText}</p>
     </>
   );
 };

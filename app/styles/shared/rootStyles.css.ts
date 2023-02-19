@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const rootStyles = style({
-    fontFamily: 'sans-serif',
     margin: 0,
+    fontFamily: 'sans-serif',
+    maxHeight: '100vh',
 })

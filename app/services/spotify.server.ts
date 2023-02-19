@@ -69,6 +69,12 @@ export const getArtistInformation = async (artistId: string, session: Session): 
   });
 
   const data = await response.json();
+  if (data.error) {
+    throw new Response('Could not retrieve artist information', {
+      status: data.error.status,
+      statusText: data.error.message
+    })
+  }
 
   return data;
 };

@@ -3,11 +3,12 @@ import { Form, Link } from "@remix-run/react";
 
 import { getSession, destroySession } from "~/auth/sessions.server";
 import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
+import { logoutPageButtons } from "~/styles/pages/logout.css";
 import { pageContainerStyles } from "~/styles/shared/pageContainer.css";
 
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
-  return redirect("/artists", {
+  return redirect("/  ", {
     headers: {
       "Set-Cookie": await destroySession(session),
     },
@@ -18,6 +19,7 @@ export default function LogoutRoute() {
   return (
     <main className={pageContainerStyles}>
       <h1>Are You Sure You Want To Sign Out?</h1>
+      <div className={logoutPageButtons}>
       <Link to="/artists">
         <button className={buttonStyles.linkButton}>
           {" "}
@@ -29,6 +31,8 @@ export default function LogoutRoute() {
           <span className={buttonTextStyles}>Yes</span>
         </button>
       </Form>
+      </div>
+      
     </main>
   );
 }

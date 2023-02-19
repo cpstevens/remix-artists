@@ -6,6 +6,7 @@ import {
   getUsersFollowedArtists,
   Homepage_ArtistInfo,
 } from "~/services/spotify.server";
+import { homepageFollowedArtistListStyles, homepageFollowedArtistsStyles } from "~/styles/pages/homepage.css";
 import { pageContainerStyles } from "~/styles/shared/pageContainer.css";
 
 type LoaderData = {
@@ -55,12 +56,16 @@ export default function Index() {
         vibing with, what they're up to, and when they'll be performing near
         you!
       </p>
-      <h2>Your Followed Artists ({followedArtists.length})</h2>
+      <div className={homepageFollowedArtistsStyles}>
+      <h2>Your Followed Artists { isUserAuthenticated && <span>({followedArtists.length})</span> }</h2>
+      <div className={homepageFollowedArtistListStyles}>
       {isUserAuthenticated ? (
         <ArtistGrid artists={followedArtists} />
       ) : (
         <p>Login to view followed artists</p>
       )}
+      </div>
+      </div>
     </div>
   );
 }

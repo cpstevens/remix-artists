@@ -25,4 +25,6 @@ export const artistListEntryContent = style({
 export const artistNameStyles = style({
     fontSize: 'large',
     fontWeight: '700',
+    color: '#cd0100',
+    textDecoration: 'none',
 })

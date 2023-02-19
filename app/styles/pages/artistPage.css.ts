@@ -4,8 +4,17 @@ export const artistPageContent = style({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginTop: '32px',
-    width: '100%'
+    justifyContent: 'space-around',
+    paddingTop: '32px',
+
+    '@media': {
+        'screen and (max-width: 900px)': {
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            gap: '16px',
+        }
+    }
 });
 
 export const artistDetails = style({
@@ -26,5 +35,5 @@ export const artistStories = style({
 
 export const artistDetailsSubSectionHeader = style({
     fontSize: 'x-large',
-    marginBottom: '12px',
+    paddingBottom: '12px',
 })

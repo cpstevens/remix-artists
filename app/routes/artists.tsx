@@ -1,7 +1,6 @@
 import { Form, Outlet } from "@remix-run/react";
 import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
 import {
-  discoverContainerStyles,
   discoverInputContainerStyles,
   discoverInputLabelStyles,
   discoverInputStyles,
@@ -16,7 +15,7 @@ export default function ArtistsLayoutPage() {
         This is the hub for all things artist related, showing your followed
         artists as well as a way to discover new ones!
       </p>
-      <div className={discoverContainerStyles}>
+      <div>
         <Form
           className={discoverInputContainerStyles}
           method="get"

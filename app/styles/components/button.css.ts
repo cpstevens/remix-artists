@@ -2,7 +2,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 export const buttonStyles = styleVariants({
     linkButton: {
-        backgroundColor: '#1Db954',
+        backgroundColor: '#f7dac3',
         padding: '8px',
         borderRadius: '8px',
         margin: 0
@@ -10,10 +10,10 @@ export const buttonStyles = styleVariants({
 });
 
 export const buttonTextStyles = style({
-    color: 'black',
+    color: '#2a2a2a',
     fontWeight: 700,
     textDecoration: 'none',
     ":visited": {
-        color: 'black'
+        color: '#2a2a2a',
     }
 })

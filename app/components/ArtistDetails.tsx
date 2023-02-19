@@ -3,6 +3,10 @@ import { Link } from "@remix-run/react";
 import {
   artistDetailsContainerStyles,
   artistDetailsContentStyles,
+  artistDetailsStatsStyles,
+  artistDetailsInformationStyles,
+  genreBadgeStyles,
+  genreListStyles,
 } from "~/styles/components/artistDetails.css";
 
 type ArtistDetailsProps = {
@@ -11,6 +15,14 @@ type ArtistDetailsProps = {
   popularity: number;
   genres: string[];
   spotifyUri: string;
+};
+
+interface GenreBadgeProps {
+  name: string;
+}
+
+const GenreBadge: React.FC<GenreBadgeProps> = ({ name }) => {
+  return <div className={genreBadgeStyles}>{name}</div>;
 };
 
 export const ArtistDetails: React.FC<ArtistDetailsProps> = ({
@@ -22,18 +34,32 @@ export const ArtistDetails: React.FC<ArtistDetailsProps> = ({
 }) => {
   return (
     <div className={artistDetailsContainerStyles}>
-      <Link to={spotifyUri} target="_blank">
+      <a href={spotifyUri} target="_blank">
         <img
           width={100}
-          src="/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png"
+          src="/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png"
         />
-      </Link>
+      </a>
       <div className={artistDetailsContentStyles}>
         <img src={imageSrc} height={250} width={250} alt={`Image of ${name}`} />
-        <div className="">
+        <div className={artistDetailsInformationStyles}>
           <h2>{name}</h2>
-          <p>Genres - {genres.join(', ')}</p>
-          <p>Popularity - {popularity}/100</p>
+          <div className={artistDetailsStatsStyles}>
+            <div>
+              <h3>Genres</h3>
+              <ul className={genreListStyles}>
+                {genres.map((name, index) => (
+                  <li key={`genre-${index}`}>
+                    <GenreBadge name={name} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>Popularity</h3>
+              <p>{popularity}/100</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
