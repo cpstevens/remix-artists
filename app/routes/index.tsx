@@ -1,6 +1,6 @@
 import { LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { commitSession, getSession } from "~/auth/sessions.server";
+import { commitSession, getSession, isUserLoggedIn } from "~/auth/sessions.server";
 import { ArtistGrid } from "~/components/ArtistList";
 import {
   getUsersFollowedArtists,
@@ -17,7 +17,7 @@ type LoaderData = {
 export const loader = async ({ request }: LoaderArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
 
-  if (!session.has("access_token")) {
+  if (!isUserLoggedIn(session)) {
     return json<LoaderData>({
       isUserAuthenticated: false,
       followedArtists: [],

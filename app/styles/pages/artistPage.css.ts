@@ -8,7 +8,7 @@ export const artistPageContent = style({
     paddingTop: '32px',
 
     '@media': {
-        'screen and (max-width: 900px)': {
+        'screen and (max-width: 1430px)': {
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
@@ -31,6 +31,8 @@ export const artistStories = style({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    maxWidth: '85%',
+    width: '750px',
 });
 
 export const artistDetailsSubSectionHeader = style({

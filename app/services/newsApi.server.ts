@@ -45,5 +45,6 @@ export const getStoriesForArtist = async (
     },
   ];
 
+  // return mockStories;
   return data.articles;
 };

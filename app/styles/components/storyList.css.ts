@@ -7,8 +7,6 @@ export const storyListContainerStyles = style({
   justifyContent: "flex-start",
   alignItems: "flex-start",
   gap: '12px',
-  width: '750px',
-  maxWidth: '100%'
 });
 
 export const storyListItemContainer = style({

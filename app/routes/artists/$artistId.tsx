@@ -6,11 +6,12 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { Suspense } from "react";
-import { getSession, isUserLoggedIn } from "~/auth/sessions.server";
+import { commitSession, getSession, isUserLoggedIn } from "~/auth/sessions.server";
 import { ArtistDetails } from "~/components/ArtistDetails";
 import { StoryList } from "~/components/StoryList";
 import { getStoriesForArtist, NewsAPI_Story } from "~/services/newsApi.server";
 import { getArtistInformation } from "~/services/spotify.server";
+import { getShowsThisWeekForArtist } from "~/services/ticketmaster.server";
 import {
     artistDetailsSubSectionHeader,
   artistPageContent,
@@ -49,6 +50,8 @@ export const loader = async ({ request, params }: LoaderArgs) => {
     session
   );
 
+  getShowsThisWeekForArtist(name);
+
   return defer<LoaderData>({
     name: name,
     imageSrc: images[0] ? images[0].url : "/not-found.jpg",
@@ -56,6 +59,10 @@ export const loader = async ({ request, params }: LoaderArgs) => {
     popularity,
     spotifyUri: uri,
     stories: getStoriesForArtist(name),
+  }, {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
   });
 };
 
