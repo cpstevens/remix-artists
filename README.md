@@ -1,5 +1,6 @@
 # remix-artists
 A site that aggregates information on artists including recent articles, powered by Remix.
+- [Check it Out](https://remix-artists.fly.dev)
 - [Remix Docs](https://remix.run/docs)
 
 ## Fly Setup
