@@ -1,4 +1,4 @@
-import { LoaderArgs, json, redirect } from "@remix-run/node";
+import { LoaderArgs, json, redirect, MetaFunction } from "@remix-run/node";
 import {
   CatchBoundaryComponent,
   useCatch,
@@ -57,6 +57,13 @@ export const loader = async ({ request }: LoaderArgs) => {
     }
   );
 };
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Remix Artists - Discover',
+    description: 'Results for artists you want to discover.'
+  }
+}
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
   const { data, statusText } = useCatch();

@@ -1,4 +1,4 @@
-import { ActionFunction, redirect } from "@remix-run/node";
+import { ActionFunction, MetaFunction, redirect } from "@remix-run/node";
 import { Form, Link } from "@remix-run/react";
 
 import { getSession, destroySession } from "~/auth/sessions.server";
@@ -14,6 +14,13 @@ export const action: ActionFunction = async ({ request }) => {
     },
   });
 };
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Remix Artists - Logout',
+    description: 'Confirm you want to leave the action'
+  }
+}
 
 export default function LogoutRoute() {
   return (

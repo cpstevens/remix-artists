@@ -1,4 +1,4 @@
-import { defer, LoaderArgs, Response } from "@remix-run/node";
+import { defer, LoaderArgs, MetaFunction, Response } from "@remix-run/node";
 import {
   Await,
   CatchBoundaryComponent,
@@ -65,6 +65,16 @@ export const loader = async ({ request, params }: LoaderArgs) => {
     },
   });
 };
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return {
+    title: `Remix Artists - ${data.name}`,
+    description: `Details, stories, and upcoming dates for ${data.name}`,
+    'og:title': `Remix Artists - ${data.name}`,
+    'og:description': `Details, stories, and upcoming dates for ${data.name}`,
+    'og:image': `${data.imageSrc}`
+  }
+}
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
   const { data, statusText } = useCatch();

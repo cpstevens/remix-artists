@@ -11,7 +11,7 @@ import { Document } from "./components/Document";
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "Remix-Artists",
-  description: "Music artist site using Remix",
+  description: "Come learn more about the artists you follow on Spotify as well as disciver new ones!",
   viewport: "width=device-width,initial-scale=1",
 });
 

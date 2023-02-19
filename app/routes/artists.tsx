@@ -1,3 +1,4 @@
+import { MetaFunction } from "@remix-run/node";
 import { Form, Outlet } from "@remix-run/react";
 import { buttonStyles, buttonTextStyles } from "~/styles/components/button.css";
 import {
@@ -6,6 +7,14 @@ import {
   discoverInputStyles,
 } from "~/styles/pages/discover.css";
 import { pageContainerStyles } from "~/styles/shared/pageContainer.css";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Remix Artists - Artists",
+    description:
+      "Search for artists, and see their spotify stats, what they are up to, and where they will be playing soon!",
+  };
+};
 
 export default function ArtistsLayoutPage() {
   return (

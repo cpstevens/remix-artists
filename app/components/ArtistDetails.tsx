@@ -38,6 +38,7 @@ export const ArtistDetails: React.FC<ArtistDetailsProps> = ({
         <img
           width={100}
           src="/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png"
+          alt="Spotify logo"
         />
       </a>
       <div className={artistDetailsContentStyles}>
